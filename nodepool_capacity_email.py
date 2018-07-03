@@ -22,7 +22,7 @@ parser.add_option('-f', '--from', '--sender', dest='FROM', help="email sender (F
 parser.add_option('-t', '--to', '--recipients', dest='TO', help="email recipient (To:)", action='append', default=[])
 parser.add_option('-s', '--subject', dest='SUBJECT', help="email subject (Subject:)", default="Isilon Node Pool Utilization Exceeds Threshold")
 parser.add_option('-T', '--threshold', dest='THRESHOLD', help="Threshold for any nodepool in percent.  e.g. 74 = 74%.  Default = 80%", type='int', default=80)
-#parser.add_option('--test') #TBD
+#parser.add_option('--test') #TODO
 opts, args = parser.parse_args()
 
 
