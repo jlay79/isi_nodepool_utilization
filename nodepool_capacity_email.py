@@ -1,4 +1,4 @@
-# Run 'isi storagepool list' and send email if nodepool capacity exceeds threshold
+# Run 'isi storagepool list' and send email if a nodepool capacity exceeds threshold
 # This is meant to be run from a cluster node directly and not remotely
 #
 # Tested on OneFS 8.0.0.4 with default Python 2.6.1 libraries
@@ -17,11 +17,11 @@ from isi.app.lib.emailer import Emailer
 
 
 usage = "Usage: %prog"
-parser = OptionParser(usage=usage, version='%prog 0.2', description="Send email if nodepool exceeds specified threshold")
+parser = OptionParser(usage=usage, version='%prog 0.2', description="Send email if a nodepool exceeds specified threshold")
 parser.add_option('-f', '--from', '--sender', dest='FROM', help="email sender (From:)")
 parser.add_option('-t', '--to', '--recipients', dest='TO', help="email recipient (To:)", action='append', default=[])
-parser.add_option('-s', '--subject', dest='SUBJECT', help="email subject (Subject:)", default="Isilon Node Pool Utilization Exceeds Threshold")
-parser.add_option('-T', '--threshold', dest='THRESHOLD', help="Threshold for any nodepool in percent.  e.g. 74 = 74%.  Default = 80%", type='int', default=80)
+parser.add_option('-s', '--subject', dest='SUBJECT', help="email subject (Subject:). Default = Isilon Node Pool Utililzation Exceeds Threshold", default="Isilon Node Pool Utilization Exceeds Threshold")
+parser.add_option('-T', '--threshold', dest='THRESHOLD', help="Threshold for any nodepool in percent.  e.g. 74 = 74%.  Default = 80%.  This same threshold applies to all node pools", type='int', default=80)
 #parser.add_option('--test') #TODO
 opts, args = parser.parse_args()
 
@@ -30,7 +30,7 @@ if (opts.FROM == None):
     fqdn = socket.getfqdn()
     opts.FROM = "donotreply@%s" % fqdn
 
-if (opts.TO == None):    
+if (opts.TO == None) or (len(opts.TO) < 1):    
 	parser.error("Unable to send mail without at least one recipient")
 	sys.exit(1)
 
