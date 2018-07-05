@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # 
 # Run 'isi storagepool list' and send email if a nodepool capacity exceeds threshold
-# This is meant to be run from a cluster node directly and not remotely
+# This is meant to be run from a cluster node directly (e.g. cron) and not remotely
 #
 # Tested on OneFS 8.0.0.4 with default Python 2.6.1 libraries
 #
