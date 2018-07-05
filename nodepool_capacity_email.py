@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# 
 # Run 'isi storagepool list' and send email if a nodepool capacity exceeds threshold
 # This is meant to be run from a cluster node directly and not remotely
 #
