@@ -4,7 +4,7 @@
 # Tested on OneFS 8.0.0.4 with default Python 2.6.1 libraries
 #
 # joshua.lay@dell.com
-# Last update 03-Jul-2018
+#
 
 
 from optparse import OptionParser
@@ -34,28 +34,34 @@ if (opts.TO == None) or (len(opts.TO) < 1):
 	parser.error("Unable to send mail without at least one recipient")
 	sys.exit(1)
 
-
-CLUSTER_NAME = socket.gethostname().split('-')[0]
 HOSTNAME = socket.gethostname()
+CLUSTER_NAME = HOSTNAME.split('-')[0]
 DATE = time.ctime()
 
 
 def isi_storagepool_list():
-    '''Run 'isi storagepool list' command and return tuple of node pools that exceed threshold and command output string'''
+    '''Run 'isi storagepool list' command and return command output string'''
     cmd = ['isi', 'storagepool', 'list']
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     output = p.communicate()[0]
     
+    return output
+    
+
+def parse_storagepools(output):
+    '''Take in output string from 'isi storagepool list' command and return list of node pools data'''
     lines = output.splitlines()
     np_lines = lines[2:-2]
     pools = []
     for p in np_lines:
         pools.append(p.split())
+    
+    return pools
         
-    return (pools, output)
 
+CMD_OUTPUT = isi_storagepool_list()
+POOLS = parse_storagepools(CMD_OUTPUT)
 
-POOLS, CMD_OUTPUT = isi_storagepool_list()
 
 body = '''\
 <html>
