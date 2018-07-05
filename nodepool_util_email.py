@@ -20,7 +20,7 @@ from isi.app.lib.emailer import Emailer
 
 usage = "Usage: %prog"
 parser = OptionParser(usage=usage, version='%prog 0.3', description="Send email if a nodepool exceeds specified threshold")
-parser.add_option('-f', '--from', '--sender', dest='FROM', help="Email sender (From:).  Default = 'donotreply@node_fqdn")
+parser.add_option('-f', '--from', '--sender', dest='FROM', help="Email sender (From:).  Default = 'donotreply@node_fqdn'")
 parser.add_option('-t', '--to', '--recipients', dest='TO', help="[Required] Email recipient (To:).  Multiple recipients must be in separate arguments", action='append', default=[])
 parser.add_option('-s', '--subject', dest='SUBJECT', help="Email subject (Subject:). Default = Isilon Node Pool Utililzation Exceeds Threshold", default="Isilon Node Pool Utilization Exceeds Threshold")
 parser.add_option('-T', '--threshold', dest='THRESHOLD', help="Threshold for any nodepool in percent.  e.g. 74 = 74%.  Default = 80%.  This same threshold applies to all node pools", type='int', default=80)
