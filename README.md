@@ -23,3 +23,10 @@ Example:
 This would use the default 80% threshold and the default subject line.
 
 
+## Multiple Recipients
+
+To add multiple recipients, just add multiple `--to` arguments.  At least one is required.
+
+Example:  
+`python nodepool_util_email.py --to storageadmins@company.com --to bob@company.com --to suzie@company.com`
+
