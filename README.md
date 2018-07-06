@@ -2,7 +2,7 @@
 
 From an Isilon cluster, run 'isi storagepool list' and parse the output.  If any node pool exceeds the utilization threshold, send an email.  The default threshold is 80%, but can be changed with the `-T` option.
 
-- If nodepools do not exceed threshold, no email will be sent and script will exit cleanly.  There is no long-running process.
+- If nodepools do not exceed threshold, no email will be sent and script will exit cleanly. 
 - The recipients (To:) must be specified manually in the command arguments.  This is the only requirement.
 - This uses the cluster's internal SMTP configuration for mail servers.  No need to configure SMTP servers in the script.
 
@@ -21,7 +21,7 @@ You can add the script to a crontab to have it run automatically on a schedule.
 Example:  
 `0 0 * * 7 root /usr/bin/python /ifs/data/scripts/nodepool_util_email.py --to storageadmins@company.com`  
 
-This would use the default 80% threshold and the default subject line.
+This would use the default 80% threshold and the default subject line.  It would run once and exit.
 
   
   
