@@ -8,10 +8,10 @@ From an Isilon cluster, run 'isi storagepool list' and parse the output.  If any
 
 ## Testing
 
-To test the script, run it with a low threshold to generate the email.  
+To test the script, run it with the `--test` argument.  This will set the threshold to 0% and the subject line to  `TEST <date>` to trigger an email to be sent.  At least one recipient is still required.
 
 Example:  
-`python nodepool_util_email.py --to storageadmins@company.com --threshold 5 --subject TEST`  
+`python nodepool_util_email.py --to storageadmins@company.com --test`  
   
   
 ## Cron
