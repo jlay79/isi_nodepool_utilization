@@ -19,12 +19,12 @@ from isi.app.lib.emailer import Emailer
 
 
 usage = "Usage: %prog"
-parser = OptionParser(usage=usage, version='%prog 0.3', description="Send email if a nodepool exceeds specified threshold")
+parser = OptionParser(usage=usage, version='%prog 0.4', description="Send email if a nodepool exceeds specified threshold")
 parser.add_option('-f', '--from', '--sender', dest='FROM', help="Email sender (From:).  Default = 'donotreply@node_fqdn'")
 parser.add_option('-t', '--to', '--recipients', dest='TO', help="[Required] Email recipient (To:).  Multiple recipients must be in separate arguments", action='append', default=[])
 parser.add_option('-s', '--subject', dest='SUBJECT', help="Email subject (Subject:). Default = Isilon Node Pool Utililzation Exceeds Threshold", default="Isilon Node Pool Utilization Exceeds Threshold")
 parser.add_option('-T', '--threshold', dest='THRESHOLD', help="Threshold for any nodepool in percent.  e.g. 74 = 74%.  Default = 80%.  This same threshold applies to all node pools", type='int', default=80)
-#parser.add_option('--test') #TODO
+parser.add_option('--test', dest='TEST', help="Sets Threshold to 0% and the subject line to 'TEST <date>' to trigger an email.  At least one recipient is still required.", action='store_true', default=False)
 opts, args = parser.parse_args()
 
 
@@ -36,9 +36,14 @@ if (opts.TO == None) or (len(opts.TO) < 1):
 	parser.error("Unable to send mail without at least one recipient")
 	sys.exit(1)
 
+
 HOSTNAME = socket.gethostname()
 CLUSTER_NAME = HOSTNAME.split('-')[0]
 DATE = time.ctime()
+
+if (opts.TEST == True):
+    opts.SUBJECT = 'TEST {date}'.format(date=DATE)
+    opts.THRESHOLD = 0
 
 
 def isi_storagepool_list():
