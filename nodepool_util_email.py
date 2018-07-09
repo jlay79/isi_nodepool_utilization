@@ -62,7 +62,10 @@ def parse_storagepools(output):
     np_lines = lines[2:-2]
     pools = []
     for p in np_lines:
-        pools.append(p.replace('- ', '').split())
+        if p.startswith('- '):
+            pools.append(p.replace('- ', '').split())
+        else:
+            pools.append(p.split())
     
     return pools
         
