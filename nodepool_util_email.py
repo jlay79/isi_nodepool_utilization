@@ -18,8 +18,8 @@ import sys
 from isi.app.lib.emailer import Emailer
 
 
-usage = "Usage: %prog"
-parser = OptionParser(usage=usage, version='%prog 0.4', description="Send email if a nodepool exceeds specified threshold")
+usage = "Usage: %prog --to [recipient]"
+parser = OptionParser(usage=usage, version='%prog 0.5', description="Send email if a nodepool exceeds specified threshold")
 parser.add_option('-f', '--from', '--sender', dest='FROM', help="Email sender (From:).  Default = 'donotreply@<node_fqdn>'")
 parser.add_option('-t', '--to', '--recipients', dest='TO', help="[Required] Email recipient (To:).  Multiple recipients must be in separate arguments", action='append', default=[])
 parser.add_option('-s', '--subject', dest='SUBJECT', help="Email subject (Subject:). Default = Isilon Node Pool Utililzation Exceeds Threshold", default="Isilon Node Pool Utilization Exceeds Threshold")
@@ -62,7 +62,7 @@ def parse_storagepools(output):
     np_lines = lines[2:-2]
     pools = []
     for p in np_lines:
-        pools.append(p.split())
+        pools.append(p.replace('- ', '').split())
     
     return pools
         
